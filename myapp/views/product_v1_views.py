@@ -1,15 +1,15 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, viewsets
-from .models import Product
-from .serializers import ProductSerializer
-from .filters import ProductFilter
+from myapp.filters import ProductFilter
+from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
-from .models import Product
-from .serializers import ProductSerializer
-from rest_framework.pagination import PageNumberPagination
+from myapp.models import Product
+from myapp.serializers import ProductSerializer
+
+
 
 
 class ProductAPIView(APIView):
@@ -83,3 +83,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = ProductFilter
+
+
+
+

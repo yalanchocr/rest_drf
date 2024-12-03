@@ -83,6 +83,8 @@ target/
 *.pot
 *.pyc
 __pycache__/
+__pycache__*
+__pycache__\
 local_settings.py
 
 .env
@@ -95,3 +97,5 @@ local_settings.py
 .idea/**/dictionaries
 .idea/**/shelf
 .idea/
+
+media/

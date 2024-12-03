@@ -1,0 +1,32 @@
+[
+    {
+      "name": "Product A",
+      "price": 99.99,
+      "in_stock": true,
+      "photo_name": "image1.jpg"
+    },
+    {
+      "name": "Product B",
+      "price": 129.99,
+      "in_stock": false,
+      "photo_name": "image2.jpg"
+    },
+    {
+      "name": "Product C",
+      "price": 49.99,
+      "in_stock": true,
+      "photo_name": "image3.jpg"
+    },
+    {
+      "name": "Product D",
+      "price": 199.99,
+      "in_stock": true,
+      "photo_name": "image4.jpg"
+    },
+    {
+      "name": "Product E",
+      "price": 79.99,
+      "in_stock": false,
+      "photo_name": "image5.jpg"
+    }
+  ]
