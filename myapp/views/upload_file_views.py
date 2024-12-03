@@ -8,7 +8,7 @@ from myapp.models import Task
 def upload_file_view(task_func, request, *args, **kwargs):
     try:
         file = request.FILES["file"]
-        if file.size > 20: # 20 mb
+        if file.size > 20 *1024 *1024: # 20 mb
             raise ValidationError(MSG.FILE_SIZE_NOT_VALID)
 
         task = Task.objects.create(file=file, user=request.user, type=Task.IMPORT_TYPE, title=file.name)

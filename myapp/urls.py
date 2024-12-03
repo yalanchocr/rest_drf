@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework import routers
 from myapp.views.product_v1_views import ProductViewSet, ProductAPIView
-from .views import UploadDataView, UploadDataView2
+from .views import UploadDataView, UploadDataView2, UploadDataQueue
 router = routers.DefaultRouter()
 router.register(r'products', ProductViewSet, basename='products')
 urlpatterns = [
@@ -9,6 +9,7 @@ urlpatterns = [
     path('products/<int:pk>/', ProductAPIView.as_view(), name='product-detail'),
     path('products_queue', UploadDataView.as_view(), name='product-queue'),
     path('upload_product', UploadDataView2.as_view(), name='upload_product'),
+    path('upload_product_file', UploadDataQueue.as_view(), name='upload_product_file'),
 ]
 # urlpatterns = [
 #     path('', include(router.urls)),

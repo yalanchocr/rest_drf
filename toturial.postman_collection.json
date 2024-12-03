@@ -10,6 +10,23 @@
 			"item": [
 				{
 					"name": "get_Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the response body\r",
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"// Extract the token from the response\r",
+									"const token = responseJson.access;\r",
+									"pm.environment.set(\"token\", token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -56,7 +73,7 @@
 							"raw": "{\"refresh\": \"your_refresh_token\"}"
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/token/refresh/",
+							"raw": "http://127.0.0.1:8020/api/token/refresh/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -64,7 +81,7 @@
 								"0",
 								"1"
 							],
-							"port": "8000",
+							"port": "8020",
 							"path": [
 								"api",
 								"token",
@@ -131,7 +148,7 @@
 			"response": []
 		},
 		{
-			"name": "http://127.0.0.1:8020/myapp/upload_product Copy",
+			"name": "upload_product",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -184,7 +201,55 @@
 			"response": []
 		},
 		{
-			"name": "http://127.0.0.1:8020/media/cars/01.jpg",
+			"name": "upload_product_file",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/E:/1039/project/django/toturial2/sample_data/sample1.zip"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8020/myapp/upload_product_file",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8020",
+					"path": [
+						"myapp",
+						"upload_product_file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_photo",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
