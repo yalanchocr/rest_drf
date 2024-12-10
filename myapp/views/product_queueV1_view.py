@@ -33,7 +33,7 @@ class UploadDataView2(APIView):
 
 
 def upload_task(task_id, user, *args, **kwargs):
-    task = Task.objects.filter(id=task_id)
+    task = Task.objects.get(id=task_id)
     try:
         file = task.file
         print(f"do import file size {file.size} ")

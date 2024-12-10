@@ -1,4 +1,4 @@
-from .models import Product
+from .models import Product, Task
 from django.conf import settings
 from rest_framework import serializers
 
@@ -38,3 +38,11 @@ class ProductSerializer2(serializers.ModelSerializer):
         if obj.photo:
             return request.build_absolute_uri(obj.photo.url)
         return None
+
+
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = '__all__'
+        # fields = ['q_task_id',]  # Customize fields for creation/update
+        # Add extra validation or logic if needed

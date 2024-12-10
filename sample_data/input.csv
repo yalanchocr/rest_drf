@@ -1,0 +1,6 @@
+name,price,in_stock,photo_name
+Product A,99.99,TRUE,image1.jpg
+Product B,129.99,FALSE,image2.jpg
+Product C,49.99,TRUE,image3.jpg
+Product D,199.99,TRUE,image4.jpg
+Product E,79.99,FALSE,image5.jpg
