@@ -1,6 +1,3 @@
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics, viewsets
-from myapp.filters import ProductFilter
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 
@@ -8,12 +5,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from myapp.models import Product
 from myapp.serializers import ProductSerializer
-
-
-
+from myapp.customPagination import CustomPageNumberPagination
 
 class ProductAPIView(APIView):
-    pagination_class = PageNumberPagination
+    pagination_class = CustomPageNumberPagination
+
     def get(self, request, pk=None):
         queryset = Product.objects.all()
         name = request.query_params.get('name', None)
@@ -28,14 +24,14 @@ class ProductAPIView(APIView):
         if pk:
             try:
                 product = queryset.get(pk=pk)
-                serializer = ProductSerializer(product)
+                serializer = ProductSerializer(product, context={'request': request})
                 return Response(serializer.data, status=status.HTTP_200_OK)
             except Product.DoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             paginator = self.pagination_class()
             paginated_queryset = paginator.paginate_queryset(queryset, request)
-            serializer = ProductSerializer(paginated_queryset, many=True)
+            serializer = ProductSerializer(paginated_queryset, many=True,  context={'request': request})
             return paginator.get_paginated_response(serializer.data)
             # return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -66,23 +62,23 @@ class ProductAPIView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-class ProductListView(generics.ListCreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = ProductFilter
-
-
-class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-
-class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = ProductFilter
+# class ProductListView(generics.ListCreateAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#     filter_backends = [DjangoFilterBackend]
+#     filterset_class = ProductFilter
+#
+#
+# class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#
+#
+# class ProductViewSet(viewsets.ModelViewSet):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#     filter_backends = [DjangoFilterBackend]
+#     filterset_class = ProductFilter
 
 
 

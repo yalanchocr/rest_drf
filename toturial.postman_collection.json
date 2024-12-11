@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "50295314-eabb-4c10-9723-b0a217f0318a",
+		"_postman_id": "63573eb0-1e87-4eaa-b3d4-2be949282b51",
 		"name": "toturial",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26343490"
 	},
 	"item": [
 		{
@@ -95,194 +96,334 @@
 			]
 		},
 		{
-			"name": "http://127.0.0.1:8020/myapp/upload_product",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
+			"name": "myapp",
+			"item": [
+				{
+					"name": "product",
+					"item": [
 						{
-							"key": "name",
-							"value": "Test Product",
-							"type": "text"
+							"name": "get_photo",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    name:Test Product\r\nprice:100.00\r\nin_stock:true\r\nphoto_name:maryam\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8020/media/cars/01.jpg",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8020",
+									"path": [
+										"media",
+										"cars",
+										"01.jpg"
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "price",
-							"value": "100.00",
-							"type": "text"
+							"name": "get_product",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8020/myapp/products?page_size=30",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8020",
+									"path": [
+										"myapp",
+										"products"
+									],
+									"query": [
+										{
+											"key": "page_size",
+											"value": "30"
+										}
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "in_stock",
-							"value": "true",
-							"type": "text"
+							"name": "get_product_by_id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8020/myapp/products/3",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8020",
+									"path": [
+										"myapp",
+										"products",
+										"3"
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"key": "photo",
-							"type": "file",
-							"src": "/E:/1039/تقویم/Calendar.Nature.1403.4K_YasDL.com/Nature1 4K/01.jpg"
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8020/myapp/products/2",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8020",
+									"path": [
+										"myapp",
+										"products",
+										"2"
+									]
+								}
+							},
+							"response": []
 						}
-					],
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					]
 				},
-				"url": {
-					"raw": "http://127.0.0.1:8020/myapp/upload_product_queue",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8020",
-					"path": [
-						"myapp",
-						"upload_product_queue"
+				{
+					"name": "Task",
+					"item": [
+						{
+							"name": "get_Task",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8020/myapp/tasks",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8020",
+									"path": [
+										"myapp",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_Task_byid",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8020/myapp/tasks/32a5ae03ea37464e83ca2577e1c799e6",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8020",
+									"path": [
+										"myapp",
+										"tasks",
+										"32a5ae03ea37464e83ca2577e1c799e6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "queue_product",
+					"item": [
+						{
+							"name": "upload_product_file",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/E:/1039/project/django/toturial2/sample_data/sample1/sample_excel.zip"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8020/myapp/upload_product_file",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8020",
+									"path": [
+										"myapp",
+										"upload_product_file"
+									]
+								}
+							},
+							"response": []
+						}
 					]
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "upload_product",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "Test Product",
-							"type": "text"
-						},
-						{
-							"key": "price",
-							"value": "100.00",
-							"type": "text"
-						},
-						{
-							"key": "in_stock",
-							"value": "true",
-							"type": "text"
-						},
-						{
-							"key": "photo",
-							"type": "file",
-							"src": "/E:/1039/تقویم/Calendar.Nature.1403.4K_YasDL.com/Nature1 4K/01.jpg"
-						}
-					],
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8020/myapp/upload_product",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8020",
-					"path": [
-						"myapp",
-						"upload_product"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "upload_product_file",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/E:/1039/project/django/toturial2/sample_data/sample1.zip"
-						}
-					],
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8020/myapp/upload_product_file",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8020",
-					"path": [
-						"myapp",
-						"upload_product_file"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get_photo",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    name:Test Product\r\nprice:100.00\r\nin_stock:true\r\nphoto_name:maryam\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8020/media/cars/01.jpg",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8020",
-					"path": [
-						"media",
-						"cars",
-						"01.jpg"
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	]
 }
