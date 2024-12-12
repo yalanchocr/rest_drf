@@ -21,4 +21,21 @@ def schedule_task():
         print("Task schedule already exists")
 
 # schedule_task()
-check_and_update_task_status()
+# check_and_update_task_status()
+from django_q.tasks import fetch
+# Assuming you have the task ID
+task_id = '0eef1e194cc244e4bd449c82d6170969'
+task = fetch(task_id)
+
+if task:
+    # Check task status
+    if task.success:
+        print("Task completed successfully")
+        print("Result:", task.result)
+    elif task.failed:
+        print("Task failed")
+        print("Error:", task.exc_info)
+    else:
+        print("Task is still in progress")
+else:
+    print("Task not found")

@@ -6,11 +6,17 @@ import pandas as pd
 from django.db import transaction
 from django.core.files import File
 from myapp.models import Product  # Replace with your actual model import
+from django.conf import settings
 
 
 def handle_batch_import_excel(task_id, zip_file_path):
+    log = []
+    success_count = 0
+    error_count = 0
+    problem_rows = []
+
     try:
-        extract_dir = os.path.join('/tmp', str(task_id))
+        extract_dir = os.path.join('/tmp', settings.APP_NAME, str(task_id))
 
         # Extract the zip file
         with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
@@ -31,32 +37,54 @@ def handle_batch_import_excel(task_id, zip_file_path):
         if not all(field in df.columns for field in ['name', 'price', 'in_stock', 'photo_name']):
             raise ValueError("Excel file is missing required fields")
 
+
         # Start an atomic transaction
         with transaction.atomic():
             for index, row in df.iterrows():
-                name = row['name']
-                price = row['price']
-                in_stock = row['in_stock'] == 'True'
-                photo_name = row['photo_name']
+                try:
+                    name = row['name']
+                    price = row['price']
+                    in_stock = row['in_stock'] == 'True'
+                    photo_name = row['photo_name']
 
-                # Validate and save the product
-                if not name or not price or photo_name is None:
-                    raise ValueError(f"Invalid data in row: {row}")
+                    # Validate and save the product
+                    if not name or not price or photo_name is None:
+                        raise ValueError(f"Invalid data in row: {row}")
 
-                product = Product(name=name, price=price, in_stock=in_stock)
-                photo_path = os.path.join(extract_dir, 'images', photo_name)
-                if not os.path.exists(photo_path):
-                    raise ValueError(f"Photo file '{photo_name}' not found")
+                    product = Product(name=name, price=price, in_stock=in_stock)
+                    photo_path = os.path.join(extract_dir, 'images', photo_name)
+                    if not os.path.exists(photo_path):
+                        raise ValueError(f"Photo file '{photo_name}' not found")
 
-                with open(photo_path, 'rb') as photo_file:
-                    product.photo.save(photo_name, File(photo_file), save=True)
+                    with open(photo_path, 'rb') as photo_file:
+                        product.photo.save(photo_name, File(photo_file), save=True)
+                    success_count += 1
 
-        return "Import successful"
+                except Exception as e:
+                    error_count += 1
+                    problem_rows.append(index)
+                    log.append(f"Row {index}: Error - {e}")
+
+        return {
+            "status": "success" if error_count == 0 else "failed",
+            "success_count": success_count,
+            "error_count": error_count,
+            "problem_rows": problem_rows,
+            "msg_err": "",
+            "log": log
+        }
 
     except Exception as e:
         # Log the error
         print(f"Error during batch import: {e}")
-        return f"Error: {e}"
+        return {
+            "status": "failed",
+            "success_count": success_count,
+            "error_count": error_count,
+            "problem_rows": problem_rows,
+            "msg_err": e,
+            "log": log
+        }
 
     finally:
         # Clean up the zip file and the extracted directory

@@ -10,15 +10,20 @@ from .import_products_data import handle_batch_import_excel
 
 def upload_task(task_id, user, *args, **kwargs):
     task = Task.objects.get(id=task_id)
+    import_msg=None
     try:
         file = task.file
         print(f"do import file size {file.size} ")
-        handle_batch_import_excel(task_id=task_id, zip_file_path=file.path)
+        import_msg = handle_batch_import_excel(task_id=task_id, zip_file_path=file.path)
 
     except Exception as err:
-        task.set_status_failed("failled because use ...")
+        task.set_status_failed("server error")
     else:
-        task.set_status_successful()
+        if import_msg["status"] == "success":
+            task.set_status_successful(import_msg)
+        else:
+            task.set_status_failed(import_msg)
+    return import_msg
 
 
 def upload_file_view(task_func, request, *args, **kwargs):

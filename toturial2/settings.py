@@ -174,7 +174,7 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
@@ -183,9 +183,10 @@ Q_CLUSTER = {
     'name': 'my_cluster',
     'workers': 4,  # Adjust the number of workers as needed
     'timeout': 60,  # Task timeout in seconds
-    'retry': 5,  # Number of retries on failure
+    'retry': 3000,  # Number of retries on failure
     'queue_limit': 50,  # Maximum number of tasks in the queue
     'bulk_size': 100,  # Number of tasks to process in bulk
+    'catch_up': False,
 }
 
 
@@ -193,3 +194,4 @@ Q_CLUSTER = {
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 PHOTO_URL = '/data'
+APP_NAME='drf_test'

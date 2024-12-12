@@ -22,7 +22,9 @@ class ProductSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ['q_task_id', 'title', 'status', 'meta_data', 'created_at']
+
         # fields = ['q_task_id',]  # Customize fields for creation/update
         # Add extra validation or logic if needed
 

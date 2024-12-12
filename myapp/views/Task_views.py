@@ -19,6 +19,7 @@ class TaskAPIView(APIView):
             except Task.DoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
         else:
+            queryset = queryset.order_by("-created_at")
             paginator = self.pagination_class()
             paginated_queryset = paginator.paginate_queryset(queryset, request)
             serializer = TaskSerializer(paginated_queryset, many=True, context={'request': request})

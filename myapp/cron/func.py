@@ -14,4 +14,6 @@ def check_and_update_task_status():
                 task.set_status_failed("problem in create a async task for doing")
                 # Optionally, you can log the update
                 print(f"Updated task: {task.id}")
+            # else:
+
 
