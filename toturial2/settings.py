@@ -187,6 +187,7 @@ Q_CLUSTER = {
     'queue_limit': 50,  # Maximum number of tasks in the queue
     'bulk_size': 100,  # Number of tasks to process in bulk
     'catch_up': False,
+    'sync':True,
 }
 
 
