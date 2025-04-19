@@ -91,12 +91,31 @@ class Task(Undeletable, TaskABC):
     def build(cls, file, user):
         raise NotImplemented
 
+class Status(models.TextChoices):
+    PENDING = "pending", "Pending"
+    COMPLETE= "completed", "Complete"
+    FAILED= "failed", "Failed"
+
+class ChildProduct(models.Model):
+    product_id = models.IntegerField()
+    status = models.CharField(max_length=100, choices=Status.choices, default=Status.PENDING)
+    run_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
 class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     in_stock = models.BooleanField(default=True)
-    photo = models.ImageField(upload_to="cars/")
+    # photo = models.ImageField(upload_to="cars/")
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    run_at = models.DateTimeField(null=True, blank=True)
+    done = models.BooleanField(default=False)
+    done_at = models.DateTimeField(null=True, blank=True)
+    active = models.BooleanField(default=True)
+
 
 
 
